@@ -1,29 +1,26 @@
 # Time: O(w*nlog(n) + n*wlog(w))
 # Space: O(w + n)
 
-def groupAnagrams(words):
-    if len(words) == 0:
-        return []
-
-    sortedWords = ["".join(sorted(w)) for w in words]
+def main(words):
+    sorted_words = ["".join(sorted(w)) for w in words]
     indices = [i for i in range(len(words))]
-    indices.sort(key=lambda x: sortedWords[x])
+    indices.sort(key=lambda x: sorted_words[x])
 
     result = []
-    currentAnagramGroup = []
-    currentAnagram = sortedWords[indices[0]]
-    for index in indices:
-        word = words[index]
-        sortedWord = sortedWords[index]
+    current_group = []
+    current_anagram = sorted_words[indices[0]]
 
-        if sortedWord == currentAnagram:
-            currentAnagramGroup.append(word)
+    for i in indices:
+        word = words[i]
+        sorted_word = sorted_words[i]
+
+        if sorted_word == current_anagram:
+            current_group.append(word)
             continue
 
-        result.append(currentAnagramGroup)
-        currentAnagramGroup = [word]
-        currentAnagram = sortedWord
 
-    result.append(currentAnagramGroup)
+        result.append(current_group)
+        current_anagram = sorted_words
+        current_group = [word]
 
     return result
